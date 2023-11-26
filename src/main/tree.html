@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Folder Tree</title>
+
+
+
+    <style>
+
+        body {
+
+            font-family: Arial, sans-serif;
+
+            margin: 20px;
+
+        }
+
+
+
+        ul {
+
+            list-style: none;
+
+            padding-left: 20px;
+
+        }
+
+
+
+        .folder {
+
+            cursor: pointer;
+
+        }
+
+    </style>
+
+</head>
+
+
+
+<body>
+
+    <h1>Folder Tree</h1>
+
+
+
+    <div id="folderTree"></div>
+
+
+
+    <script>
+
+        // Sample folder structure (replace this with your own data)
+
+        const folderStructure = {
+
+            name: 'Root',
+
+            type: 'folder',
+
+            children: [
+
+                {
+
+                    name: 'Folder A',
+
+                    type: 'folder',
+
+                    children: [
+
+                        {
+
+                            name: 'File A1.txt',
+
+                            type: 'file'
+
+                        },
+
+                        {
+
+                            name: 'File A2.txt',
+
+                            type: 'file'
+
+                        },
+
+                    ]
+
+                },
+
+                {
+
+                    name: 'Folder B',
+
+                    type: 'folder',
+
+                    children: [
+
+                        {
+
+                            name: 'File B1.txt',
+
+                            type: 'file'
+
+                        },
+
+                    ]
+
+                },
+
+                {
+
+                    name: 'File Root1.txt',
+
+                    type: 'file'
+
+                }
+
+            ]
+
+        };
+
+
+
+        // Function to generate HTML for the folder structure
+
+        function generateFolderHTML(folder) {
+
+            let html = `<li class="${folder.type}">${folder.name}`;
+
+            
+
+            if (folder.children) {
+
+                html += '<ul>';
+
+                folder.children.forEach(child => {
+
+                    html += generateFolderHTML(child);
+
+                });
+
+                html += '</ul>';
+
+            }
+
+
+
+            html += '</li>';
+
+            return html;
+
+        }
+
+
+
+        // Render the folder tree
+
+        const folderTreeElement = document.getElementById('folderTree');
+
+        folderTreeElement.innerHTML = `<ul>${generateFolderHTML(folderStructure)}</ul>`;
+
+
+
+        // Add click event listeners to toggle folder visibility
+
+        const folderElements = document.querySelectorAll('.folder');
+
+        folderElements.forEach(folder => {
+
+            folder.addEventListener('click', () => {
+
+                folder.classList.toggle('open');
+
+            });
+
+        });
+
+    </script>
+
+</body>
+
+
+
+</html>
+
